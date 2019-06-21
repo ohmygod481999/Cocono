@@ -1,17 +1,28 @@
+<?php require_once("../controller/initialize.php"); ?>
+<?php if(is_get_request()){
+    $id = $_GET['id'];
+    $course = get_course_by_id($id);
+    $category = get_category_by_id($course['id_ca']);
+}
+?>
+<?php
+  $courses_set = get_courses();
+
+?>
 <!doctype html>
 <html lang="en">
 
 <head>
-   
+
     <!--====== Required meta tags ======-->
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!--====== Title ======-->
     <title>Edubin - LMS Education HTML Template</title>
-    
+
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
 
@@ -20,10 +31,10 @@
 
     <!--====== Animate css ======-->
     <link rel="stylesheet" href="css/animate.css">
-    
+
     <!--====== Nice Select css ======-->
     <link rel="stylesheet" href="css/nice-select.css">
-    
+
     <!--====== Nice Number css ======-->
     <link rel="stylesheet" href="css/jquery.nice-number.min.css">
 
@@ -32,26 +43,26 @@
 
     <!--====== Bootstrap css ======-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+
     <!--====== Fontawesome css ======-->
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    
+
     <!--====== Default css ======-->
     <link rel="stylesheet" href="css/default.css">
-    
+
     <!--====== Style css ======-->
     <link rel="stylesheet" href="css/style.css">
-    
+
     <!--====== Responsive css ======-->
     <link rel="stylesheet" href="css/responsive.css">
-  
-  
+
+
 </head>
 
 <body>
-  
+
   <!--====== PRELOADER PART START ======-->
-    
+
     <div class="preloader">
         <div class="loader rubix-cube">
             <div class="layer layer-1"></div>
@@ -64,13 +75,13 @@
             <div class="layer layer-8"></div>
         </div>
     </div>
-    
+
     <!--====== PRELOADER PART START ======-->
-   
+
     <!--====== HEADER PART START ======-->
-    
+
 <header id="header-part">
-       
+
         <div class="header-top d-none d-lg-block">
             <div class="container">
                 <div class="row">
@@ -90,7 +101,7 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- header top -->
-        
+
         <div class="header-logo-support pt-30 pb-30">
             <div class="container">
                 <div class="row">
@@ -120,7 +131,7 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- header logo support -->
-        
+
         <div class="navigation">
             <div class="container">
                 <div class="row">
@@ -146,10 +157,10 @@
                                         <a href="about.html">About us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="courses.html">Courses</a>
+                                        <a href="courses.php">Courses</a>
                                         <ul class="sub-menu">
-                                            <li><a href="courses.html">Courses</a></li>
-                                            <li><a href="courses-singel.html">Course Singel</a></li>
+                                            <li><a href="courses.php">Courses</a></li>
+                                            <li><a href="courses-singel.php">Course Singel</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -160,10 +171,10 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="teachers.html">Our teachers</a>
+                                        <a href="teachers.php">Our teachers</a>
                                         <ul class="sub-menu">
-                                            <li><a href="teachers.html">teachers</a></li>
-                                            <li><a href="teachers-singel.html">teacher Singel</a></li>
+                                            <li><a href="teachers.php">teachers</a></li>
+                                            <li><a href="teachers-singel.php">teacher Singel</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -202,13 +213,13 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div>
-        
+
     </header>
-    
+
     <!--====== HEADER PART ENDS ======-->
-   
+
     <!--====== SEARCH BOX PART START ======-->
-    
+
     <div class="search-box">
         <div class="serach-form">
             <div class="closebtn">
@@ -221,17 +232,17 @@
             </form>
         </div> <!-- serach form -->
     </div>
-    
+
     <!--====== SEARCH BOX PART ENDS ======-->
-   
+
     <!--====== PAGE BANNER PART START ======-->
-    
+
     <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-2.jpg)">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-banner-cont">
-                        <h2>Learn basic javascript</h2>
+                        <h2><?php echo $course["name_co"]; ?></h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -244,18 +255,18 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-    
+
     <!--====== PAGE BANNER PART ENDS ======-->
-    
+
     <!--====== COURSES SINGEl PART START ======-->
-    
+
     <section id="corses-singel" class="pt-90 pb-120 gray-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="corses-singel-left mt-30">
                         <div class="title">
-                            <h3>Learn basis javascirpt from start for beginner</h3>
+                            <h3><?php echo $course["name_co"]; ?></h3>
                         </div> <!-- title -->
                         <div class="course-terms">
                             <ul>
@@ -266,14 +277,14 @@
                                         </div>
                                         <div class="name">
                                             <span>Teacher</span>
-                                            <h6>Mark anthem</h6>
+                                            <h6><?php echo get_teacher_by_id($course["id_te"])['name_te']; ?></h6>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="course-category">
                                         <span>Category</span>
-                                        <h6>Programaming </h6>
+                                        <h6><?php echo $category['name_ca']; ?> </h6>
                                     </div>
                                 </li>
                                 <li>
@@ -291,11 +302,11 @@
                                 </li>
                             </ul>
                         </div> <!-- course terms -->
-                        
+
                         <div class="corses-singel-image pt-50">
-                            <img src="images/course/cu-1.jpg" alt="Courses">
+                            <img src="<?php echo $course["path_pic"]; ?>" alt="Courses">
                         </div> <!-- corses singel image -->
-                        
+
                         <div class="corses-tab mt-30">
                             <ul class="nav nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -311,7 +322,7 @@
                                     <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
                                 </li>
                             </ul>
-                            
+
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                     <div class="overview-description">
@@ -349,7 +360,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="card">
                                                 <div class="card-header" id="headingTow">
                                                     <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
@@ -422,7 +433,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="card">
                                                 <div class="card-header" id="headingSix">
                                                     <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -440,7 +451,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="card">
                                                 <div class="card-header" id="headingSeven">
                                                     <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
@@ -616,7 +627,7 @@
                             </div> <!-- tab content -->
                         </div>
                     </div> <!-- corses singel left -->
-                    
+
                 </div>
                 <div class="col-lg-4">
                     <div class="row">
@@ -625,19 +636,19 @@
                                <h4>Course Features </h4>
                                 <ul>
                                     <li><i class="fa fa-clock-o"></i>Duaration : <span>10 Hours</span></li>
-                                    <li><i class="fa fa-clone"></i>Leactures : <span>09</span></li>
-                                    <li><i class="fa fa-beer"></i>Quizzes :  <span>05</span></li>
+                                    <li><i class="fa fa-clone"></i>Leactures : <span><?php echo $course['num_lecture']; ?></span></li>
+                                    <li><i class="fa fa-beer"></i>Quizzes :  <span><?php echo $course['num_quizzes']; ?></span></li>
                                     <li><i class="fa fa-user-o"></i>Students :  <span>100</span></li>
                                 </ul>
                                 <div class="price-button pt-10">
-                                    <span>Price : <b>$25</b></span>
+                                    <span>Price : <b><?php echo $course['price']." đ" ?></b></span>
                                     <a href="#" class="main-btn">Enroll Now</a>
                                 </div>
                             </div> <!-- course features -->
                         </div>
                         <div class="col-lg-12 col-md-6">
                             <div class="You-makelike mt-30">
-                                <h4>You make like </h4> 
+                                <h4>You make like </h4>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
                                         <img src="images/your-make/y-1.jpg" alt="Image">
@@ -705,7 +716,7 @@
                                             <li><i class="fa fa-star"></i></li>
                                         </ul>
                                         <span>(20 Reviws)</span>
-                                        <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
+                                        <a href="courses-singel.php"><h4><?php echo $course["name_co"]; ?></h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
                                                 <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
@@ -742,7 +753,7 @@
                                             <li><i class="fa fa-star"></i></li>
                                         </ul>
                                         <span>(20 Reviws)</span>
-                                        <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
+                                        <a href="courses-singel.php"><h4><?php echo $course["name_co"]; ?></h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
                                                 <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
@@ -766,11 +777,11 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-    
+
     <!--====== COURSES SINGEl PART ENDS ======-->
-   
+
     <!--====== FOOTER PART START ======-->
-    
+
     <footer id="footer-part">
         <div class="footer-top pt-40 pb-70">
             <div class="container">
@@ -797,14 +808,14 @@
                             <ul>
                                 <li><a href="index-2.html"><i class="fa fa-angle-right"></i>Home</a></li>
                                 <li><a href="about.html"><i class="fa fa-angle-right"></i>About us</a></li>
-                                <li><a href="courses.html"><i class="fa fa-angle-right"></i>Courses</a></li>
+                                <li><a href="courses.php"><i class="fa fa-angle-right"></i>Courses</a></li>
                                 <li><a href="blog.html"><i class="fa fa-angle-right"></i>News</a></li>
                                 <li><a href="events.html"><i class="fa fa-angle-right"></i>Event</a></li>
                             </ul>
                             <ul>
                                 <li><a href="#"><i class="fa fa-angle-right"></i>Gallery</a></li>
                                 <li><a href="shop.html"><i class="fa fa-angle-right"></i>Shop</a></li>
-                                <li><a href="teachers.html"><i class="fa fa-angle-right"></i>Teachers</a></li>
+                                <li><a href="teachers.php"><i class="fa fa-angle-right"></i>Teachers</a></li>
                                 <li><a href="#"><i class="fa fa-angle-right"></i>Support</a></li>
                                 <li><a href="contact.html"><i class="fa fa-angle-right"></i>Contact</a></li>
                             </ul>
@@ -860,7 +871,7 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- footer top -->
-        
+
         <div class="footer-copyright pt-10 pb-25">
             <div class="container">
                 <div class="row">
@@ -871,64 +882,64 @@
                     </div>
                     <div class="col-md-4">
                         <div class="copyright text-md-right text-center pt-15">
-                           
+
                         </div>
                     </div>
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- footer copyright -->
     </footer>
-    
+
     <!--====== FOOTER PART ENDS ======-->
-   
+
     <!--====== BACK TO TP PART START ======-->
-    
+
     <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
-    
+
     <!--====== BACK TO TP PART ENDS ======-->
-   
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
     <!--====== jquery js ======-->
     <script src="js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
 
     <!--====== Bootstrap js ======-->
     <script src="js/bootstrap.min.js"></script>
-    
+
     <!--====== Slick js ======-->
     <script src="js/slick.min.js"></script>
-    
+
     <!--====== Magnific Popup js ======-->
     <script src="js/jquery.magnific-popup.min.js"></script>
-    
+
     <!--====== Counter Up js ======-->
     <script src="js/waypoints.min.js"></script>
     <script src="js/jquery.counterup.min.js"></script>
-    
+
     <!--====== Nice Select js ======-->
     <script src="js/jquery.nice-select.min.js"></script>
-    
+
     <!--====== Nice Number js ======-->
     <script src="js/jquery.nice-number.min.js"></script>
-    
+
     <!--====== Count Down js ======-->
     <script src="js/jquery.countdown.min.js"></script>
-    
+
     <!--====== Validator js ======-->
     <script src="js/validator.min.js"></script>
-    
+
     <!--====== Ajax Contact js ======-->
     <script src="js/ajax-contact.js"></script>
-    
+
     <!--====== Main js ======-->
     <script src="js/main.js"></script>
-    
+
     <!--====== Map js ======-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
     <script src="js/map-script.js"></script>
