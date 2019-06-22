@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--====== Title ======-->
-    <title>Edubin - LMS Education HTML Template</title>
+    <title>Cocono</title>
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
@@ -333,7 +333,7 @@
                                                           <li><i class="fa fa-star"></i></li>
                                                       </ul>
                                                       <span>(20 Reviws)</span>
-                                                      <a href="#"><h4><?php echo $courses['name_co']; ?></h4></a>
+                                                      <a href="courses-singel.php?id=<?php echo $courses['id_co']; ?>"><h4><?php echo $courses['name_co']; ?></h4></a>
                                                       <div class="course-teacher">
                                                           <div class="thum">
                                                               <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>

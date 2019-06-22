@@ -1,6 +1,6 @@
 <?php require_once("../controller/initialize.php"); ?>
 <?php if(is_get_request()){
-    $id = $_GET['id'];
+    $id = $_GET['id'] ?? '1';
     $course = get_course_by_id($id);
     $category = get_category_by_id($course['id_ca']);
 }
@@ -276,27 +276,27 @@
                                             <img src="images/course/teacher/t-1.jpg" alt="Teacher">
                                         </div>
                                         <div class="name">
-                                            <span>Teacher</span>
+                                            <span>Giảng viên</span>
                                             <h6><?php echo get_teacher_by_id($course["id_te"])['name_te']; ?></h6>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="course-category">
-                                        <span>Category</span>
+                                        <span>Thể loại</span>
                                         <h6><?php echo $category['name_ca']; ?> </h6>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="review">
-                                        <span>Review</span>
+                                        <span>Đánh giá</span>
                                         <ul>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="rating">(20 Reviws)</li>
+                                            <li class="rating">(20 Đánh giá)</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -310,16 +310,16 @@
                         <div class="corses-tab mt-30">
                             <ul class="nav nav-justified" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                                    <a class="active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Tổng quan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="curriculam-tab" data-toggle="tab" href="#curriculam" role="tab" aria-controls="curriculam" aria-selected="false">Curriculam</a>
+                                    <a id="curriculam-tab" data-toggle="tab" href="#curriculam" role="tab" aria-controls="curriculam" aria-selected="false">Chương trình</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="instructor-tab" data-toggle="tab" href="#instructor" role="tab" aria-controls="instructor" aria-selected="false">Instructor</a>
+                                    <a id="instructor-tab" data-toggle="tab" href="#instructor" role="tab" aria-controls="instructor" aria-selected="false">Người hướng dẫn</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+                                    <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Đánh giá</a>
                                 </li>
                             </ul>
 
@@ -327,12 +327,12 @@
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                     <div class="overview-description">
                                         <div class="singel-description pt-40">
-                                            <h6>Course Summery</h6>
-                                            <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                            <h6>Tổng quan về khóa học</h6>
+                                            <p><?php echo $course['overview_co']; ?></p>
                                         </div>
                                         <div class="singel-description pt-40">
-                                            <h6>Requrements</h6>
-                                            <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                            <h6>Yêu cầu</h6>
+                                            <p><?php echo $course['requirement_co']; ?></p>
                                         </div>
                                     </div> <!-- overview description -->
                                 </div>
@@ -633,22 +633,22 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6">
                             <div class="course-features mt-30">
-                               <h4>Course Features </h4>
+                               <h4>Thông tin khóa học </h4>
                                 <ul>
-                                    <li><i class="fa fa-clock-o"></i>Duaration : <span>10 Hours</span></li>
-                                    <li><i class="fa fa-clone"></i>Leactures : <span><?php echo $course['num_lecture']; ?></span></li>
-                                    <li><i class="fa fa-beer"></i>Quizzes :  <span><?php echo $course['num_quizzes']; ?></span></li>
-                                    <li><i class="fa fa-user-o"></i>Students :  <span>100</span></li>
+                                    <li><i class="fa fa-clock-o"></i>Thời lượng : <span>10 Hours</span></li>
+                                    <li><i class="fa fa-clone"></i>Số buổi : <span><?php echo $course['num_lecture']; ?></span></li>
+                                    <li><i class="fa fa-beer"></i>Bài kiểm tra :  <span><?php echo $course['num_quizzes']; ?></span></li>
+                                    <li><i class="fa fa-user-o"></i>Học viên :  <span>100</span></li>
                                 </ul>
                                 <div class="price-button pt-10">
-                                    <span>Price : <b><?php echo $course['price']." đ" ?></b></span>
+                                    <span>Giá : <b><?php echo $course['price']; ?></b></span>
                                     <a href="#" class="main-btn">Enroll Now</a>
                                 </div>
                             </div> <!-- course features -->
                         </div>
                         <div class="col-lg-12 col-md-6">
                             <div class="You-makelike mt-30">
-                                <h4>You make like </h4>
+                                <h4>Bạn có  thể thích </h4>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
                                         <img src="images/your-make/y-1.jpg" alt="Image">
@@ -694,7 +694,7 @@
                 <div class="col-lg-8">
                     <div class="releted-courses pt-95">
                         <div class="title">
-                            <h3>Releted Courses</h3>
+                            <h3>Các khóa học liên quan</h3>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
