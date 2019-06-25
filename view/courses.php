@@ -84,7 +84,7 @@
                     <div class="col-lg-6">
                         <div class="header-contact text-lg-left text-center">
                             <ul>
-                                <li><img src="images/all-icon/map.png" alt="icon"><span>127/5 Mark street, New york</span></li>
+                                <li><img src="images/all-icon/map.png" alt="icon"><span>RMIT 521 Kim Mã, Đống Đa, Hà Nội</span></li>
                                 <li><img src="images/all-icon/email.png" alt="icon"><span>info@yourmail.com</span></li>
                             </ul>
                         </div>
@@ -287,7 +287,7 @@
                               <div class="singel-course mt-30">
                                   <div class="thum">
                                       <div class="image">
-                                          <img src="<?php echo $courses["path_pic"]; ?>" alt="Course">
+                                          <img src="<?php if ($courses["path_pic"] != "") echo $courses["path_pic"]; else echo "images/course/unknow.png"; ?>" alt="Course">
                                       </div>
                                       <div class="price">
                                           <span><?php echo $courses["price"]; ?></span>
