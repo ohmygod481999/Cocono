@@ -1,253 +1,71 @@
-<?php require_once("../controller/initialize.php"); ?>
+<?php require_once("../../controller/initialize.php"); ?>
 <?php if(is_get_request()){
     $id = $_GET['id'] ?? '1';
     $course = get_course_by_id($id);
     $category = get_category_by_id($course['id_ca']);
+    $option['edit'] = $_GET['edit'] ?? false;
+    $option['delete'] = $_GET['delete'] ?? false;
+    if($option['edit']){
+      $categories_set = get_categories();
+      $teachers_set = get_teachers();
+    }
+    elseif ($option['delete']) {
+      $result = delete_course($id);
+      if ($result == true){
+        redirect_to('courses_management.php');
+      }
+      else{
+        $errors = $result;
+      }
+    }
 }
+?>
+
+<?php
+  if(is_post_request()){
+    $new_course = [];
+    $new_course['id_co'] = $_POST['id_co'];
+    $new_course['id_ca'] = $_POST['id_ca'];
+    $new_course['name_co'] = $_POST['name_co'];
+    $new_course['length_co'] = $_POST['length_co'];
+    $new_course['num_lecture'] = $_POST['num_lecture'];
+    $new_course['num_quizzes'] = $_POST['num_quizzes'];
+    $new_course['path_pic'] = $_POST['path_pic'];
+    $new_course['price'] = $_POST['price'];
+    $new_course['id_te'] = $_POST['id_te'];
+    $new_course['overview_co'] = $_POST['overview_co'];
+    $new_course['requirement_co'] = $_POST['requirement_co'];
+
+    $result = update_course($new_course);
+    if ($result == true){
+     redirect_to('edit_course.php?id='.$new_course['id_co']);
+    }
+    else {
+      $errors = $result;
+    }
+  }
 ?>
 <?php
   $courses_set = get_courses();
 
 ?>
-<!doctype html>
-<html lang="en">
-
-<head>
-
-    <!--====== Required meta tags ======-->
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!--====== Title ======-->
-    <title>Edubin - LMS Education HTML Template</title>
-
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
-
-    <!--====== Slick css ======-->
-    <link rel="stylesheet" href="css/slick.css">
-
-    <!--====== Animate css ======-->
-    <link rel="stylesheet" href="css/animate.css">
-
-    <!--====== Nice Select css ======-->
-    <link rel="stylesheet" href="css/nice-select.css">
-
-    <!--====== Nice Number css ======-->
-    <link rel="stylesheet" href="css/jquery.nice-number.min.css">
-
-    <!--====== Magnific Popup css ======-->
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <!--====== Bootstrap css ======-->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!--====== Fontawesome css ======-->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-
-    <!--====== Default css ======-->
-    <link rel="stylesheet" href="css/default.css">
-
-    <!--====== Style css ======-->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!--====== Responsive css ======-->
-    <link rel="stylesheet" href="css/responsive.css">
-
-
-</head>
-
-<body>
-
-  <!--====== PRELOADER PART START ======-->
-
-    <div class="preloader">
-        <div class="loader rubix-cube">
-            <div class="layer layer-1"></div>
-            <div class="layer layer-2"></div>
-            <div class="layer layer-3 color-1"></div>
-            <div class="layer layer-4"></div>
-            <div class="layer layer-5"></div>
-            <div class="layer layer-6"></div>
-            <div class="layer layer-7"></div>
-            <div class="layer layer-8"></div>
-        </div>
-    </div>
-
-    <!--====== PRELOADER PART START ======-->
-
-    <!--====== HEADER PART START ======-->
-
-<header id="header-part">
-
-        <div class="header-top d-none d-lg-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header-contact text-lg-left text-center">
-                            <ul>
-                                <li><img src="images/all-icon/map.png" alt="icon"><span>RMIT 521 Kim Mã, Đống Đa, Hà Nội</span></li>
-                                <li><img src="images/all-icon/email.png" alt="icon"><span>info@yourmail.com</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-opening-time text-lg-right text-center">
-                            <p>Opening Hours : Monday to Saturay - 8 Am to 5 Pm</p>
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- header top -->
-
-        <div class="header-logo-support pt-30 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="logo">
-                            <a href="index-2.html">
-                                <img src="images/logo.png" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8">
-                        <div class="support-button float-right d-none d-md-block">
-                            <div class="support float-left">
-                                <div class="icon">
-                                    <img src="images/all-icon/support.png" alt="icon">
-                                </div>
-                                <div class="cont">
-                                    <p>Need Help? call us free</p>
-                                    <span>321 325 5678</span>
-                                </div>
-                            </div>
-                            <div class="button float-left">
-                                <a href="#" class="main-btn">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- header logo support -->
-
-        <div class="navigation">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-9 col-8">
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <a class="active" href="index-2.html">Home</a>
-                                        <ul class="sub-menu">
-                                            <li><a class="active" href="index-2.html">Home 01</a></li>
-                                            <li><a href="index-3.html">Home 02</a></li>
-                                            <li><a href="index-4.html">Home 03</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="about.html">About us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="courses.php">Courses</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="courses.php">Courses</a></li>
-                                            <li><a href="courses-singel.php">Course Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="events.html">Events</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="events.html">Events</a></li>
-                                            <li><a href="events-singel.html">Event Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="teachers.php">Our teachers</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="teachers.php">teachers</a></li>
-                                            <li><a href="teachers-singel.php">teacher Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="blog.html">Blog</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-singel.html">Blog Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="shop.html">Shop</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="shop-singel.html">Shop Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="contact.html">Contact</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="contact.html">Contact Us</a></li>
-                                            <li><a href="contact-2.html">Contact Us 2</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav> <!-- nav -->
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-4">
-                        <div class="right-icon text-right">
-                            <ul>
-                                <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-                            </ul>
-                        </div> <!-- right icon -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div>
-
-    </header>
-
-    <!--====== HEADER PART ENDS ======-->
-
-    <!--====== SEARCH BOX PART START ======-->
-
-    <div class="search-box">
-        <div class="serach-form">
-            <div class="closebtn">
-                <span></span>
-                <span></span>
-            </div>
-            <form action="#">
-                <input type="text" placeholder="Search by keyword">
-                <button><i class="fa fa-search"></i></button>
-            </form>
-        </div> <!-- serach form -->
-    </div>
+  <?php require_once(SHARED_PATH . '/staff_header.php'); ?>
 
     <!--====== SEARCH BOX PART ENDS ======-->
 
     <!--====== PAGE BANNER PART START ======-->
 
-    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-2.jpg)">
+    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(../images/page-banner-2.jpg)">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-banner-cont">
-                        <h2><?php echo $course["name_co"]; ?></h2>
+                        <h2>Edit course</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Learn basic javasript</li>
+                                <li class="breadcrumb-item"><a href="../#">Staff</a></li>
+                                <li class="breadcrumb-item"><a href="../#">Courses management</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit course</li>
                             </ol>
                         </nav>
                     </div>  <!-- page banner cont -->
@@ -273,7 +91,7 @@
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="images/course/teacher/t-1.jpg" alt="Teacher">
+                                            <img src="../images/course/teacher/t-1.jpg" alt="Teacher">
                                         </div>
                                         <div class="name">
                                             <span>Giảng viên</span>
@@ -291,11 +109,11 @@
                                     <div class="review">
                                         <span>Đánh giá</span>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="../#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="../#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="../#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="../#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="../#"><i class="fa fa-star"></i></a></li>
                                             <li class="rating">(20 Đánh giá)</li>
                                         </ul>
                                     </div>
@@ -304,7 +122,7 @@
                         </div> <!-- course terms -->
 
                         <div class="corses-singel-image pt-50">
-                            <img src="<?php echo $course["path_pic"]; ?>" alt="Courses">
+                            <img src="../<?php echo $course["path_pic"]; ?>" alt="Courses">
                         </div> <!-- corses singel image -->
 
                         <div class="corses-tab mt-30">
@@ -344,7 +162,7 @@
                                         <div class="accordion" id="accordionExample">
                                             <div class="card">
                                                 <div class="card-header" id="headingOne">
-                                                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    <a href="../#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.1</span></li>
@@ -363,7 +181,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingTow">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.2</span></li>
@@ -382,7 +200,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingThree">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.3</span></li>
@@ -400,7 +218,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingFore">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseFore" aria-expanded="false" aria-controls="collapseFore">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseFore" aria-expanded="false" aria-controls="collapseFore">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.4</span></li>
@@ -418,7 +236,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingFive">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.5</span></li>
@@ -436,7 +254,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingSix">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.6</span></li>
@@ -454,7 +272,7 @@
 
                                             <div class="card">
                                                 <div class="card-header" id="headingSeven">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                    <a href="../#" data-toggle="collapse" class="collapsed" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture 1.7</span></li>
@@ -476,16 +294,16 @@
                                     <div class="instructor-cont">
                                         <div class="instructor-author">
                                             <div class="author-thum">
-                                                <img src="images/instructor/i-1.jpg" alt="Instructor">
+                                                <img src="../images/instructor/i-1.jpg" alt="Instructor">
                                             </div>
                                             <div class="author-name">
-                                                <a href="#"><h5>Sumon Hasan</h5></a>
+                                                <a href="../#"><h5>Sumon Hasan</h5></a>
                                                 <span>Senior WordPress Developer</span>
                                                 <ul class="social">
-                                                    <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                                    <li><a href="../#"><i class="fa fa-facebook-f"></i></a></li>
+                                                    <li><a href="../#"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a href="../#"><i class="fa fa-google-plus"></i></a></li>
+                                                    <li><a href="../#"><i class="fa fa-instagram"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -504,7 +322,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-1.jpg" alt="Reviews">
+                                                            <img src="../images/review/r-1.jpg" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Bobby Aktar</h6>
@@ -530,7 +348,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-2.jpg" alt="Reviews">
+                                                            <img src="../images/review/r-2.jpg" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Humayun Ahmed</h6>
@@ -556,7 +374,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-3.jpg" alt="Reviews">
+                                                            <img src="../images/review/r-3.jpg" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Tania Aktar</h6>
@@ -642,139 +460,137 @@
                                 </ul>
                                 <div class="price-button pt-10">
                                     <span>Giá : <b><?php echo $course['price']; ?></b></span>
-                                    <a href="#" class="main-btn">Enroll Now</a>
                                 </div>
                             </div> <!-- course features -->
                         </div>
-                        <div class="col-lg-12 col-md-6">
-                            <div class="You-makelike mt-30">
-                                <h4>Bạn có  thể thích </h4>
+                        <div class="col-lg-12 col-md-6" >
+                            <div class="You-makelike mt-30" >
+                                <h4>Option</h4>
                                 <div class="singel-makelike mt-20">
-                                    <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
-                                    </div>
-                                    <div class="cont">
-                                        <a href="#"><h4>Introduction to machine languages</h4></a>
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>31</a></li>
-                                            <li>$50</li>
-                                        </ul>
-                                    </div>
+                                  <div>
+                                      <a href="edit_course.php?id=<?php echo $course['id_co']; ?>&edit=true" class="main-btn" style="width :100%">Edit</a>
+                                  </div>
                                 </div>
                                 <div class="singel-makelike mt-20">
-                                    <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
-                                    </div>
-                                    <div class="cont">
-                                        <a href="#"><h4>How to build a basis game with java </h4></a>
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>31</a></li>
-                                            <li>$50</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="singel-makelike mt-20">
-                                    <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
-                                    </div>
-                                    <div class="cont">
-                                        <a href="#"><h4>Basic accounting from primary</h4></a>
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>31</a></li>
-                                            <li>$50</li>
-                                        </ul>
-                                    </div>
+                                  <div>
+                                      <a onclick="deleteCourse(<?php echo $course['id_co']; ?>)" class="main-btn" style="width :100%">Delete</a>
+                                      <script type="text/javascript">
+                                        function deleteCourse(courseId){
+                                          if (confirm("Do you want to delete?")){
+                                            window.location.href='edit_course.php?id='+courseId+'&delete=true';
+                                            return true;
+                                          }
+                                        }
+                                      </script>
+                                  </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php if($option['edit']) { ?>
+                  <div class="col-lg-8">
+                      <div class="contact-from mt-30">
+                          <div class="section-title">
+                              <h5>Course Management</h5>
+                              <h2>Edit course</h2>
+                          </div> <!-- section title -->
+                          <div class="main-form pt-45">
+                              <form id="add-course-form" action="edit_course.php" method="post" data-toggle="validator">
+                                  <div class="row">
+                                      <input type="hidden" name="id_co" value="<?php echo $course['id_co']; ?>">
+                                      <div class="col-md-12">
+                                          <div class="singel-form form-group">
+                                              <h6>Name:</h6>
+                                              <input name="name_co" type="text" placeholder="Course name" value="<?php echo $course['name_co']; ?>" data-error="Name is required." required="required">
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-12">
+                                        <div  class="singel-form form-group">
+                                          <h6>Category :</h6>
+                                          <select name="id_ca" class="col-md-12">
+                                            <?php while ($category = mysqli_fetch_assoc($categories_set)) {?>
+                                              <option value="<?php echo $category['id_ca']; ?>" <?php if ($category['id_ca']==$course['id_ca']) echo 'selected="selected"'; ?>><?php echo $category['name_ca']; ?></option>
+                                            <? } ?>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <div class="singel-form form-group">
+                                            <h6>Course length</h6>
+                                              <input name="length_co" type="text" value="<?php echo $course['length_co']; ?>" placeholder="Course length" data-error="Valid number is required." required="required">
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="singel-form form-group">
+                                          <h6>Number lecture</h6>
+                                            <input name="num_lecture" type="text" value="<?php echo $course['num_lecture']; ?>" placeholder="Number lecture" data-error="Valid number is required." required="required">
+                                            <div class="help-block with-errors"></div>
+                                        </div>  <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="singel-form form-group">
+                                          <h6>Number quizz</h6>
+                                            <input name="num_quizzes" type="text" value="<?php echo $course['num_quizzes']; ?>" placeholder="Number lecture" data-error="Valid number is required." required="required">
+                                            <div class="help-block with-errors"></div>
+                                        </div>  <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="singel-form form-group">
+                                            <h6>Price</h6>
+                                              <input name="price" type="text" value="<?php echo $course['price']; ?>" placeholder="Price" data-error="Price is required." required="required">
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-12">
+                                        <div  class="singel-form form-group">
+                                          <h6>Teacher :</h6>
+                                          <select name="id_te" class="col-md-12">
+                                            <?php while ($teacher = mysqli_fetch_assoc($teachers_set)) {?>
+                                              <option value="<?php echo $teacher['id_te']; ?>" <?php if ($teacher['id_te']==$course['id_te']) echo 'selected="selected"'; ?>><?php echo $teacher['name_te']; ?></option>
+                                            <? } ?>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="singel-form form-group">
+                                            <h6>Picture</h6>
+                                              <input name="path_pic" type="text" value="<?php echo $course['path_pic']; ?>" placeholder="Picture">
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="singel-form form-group">
+                                              <h6>Overview</h6>
+                                              <textarea name="overview_co" placeholder="Overview" data-error="Please,write a overview about course." required="required"><?php echo $course['overview_co']; ?></textarea>
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="singel-form form-group">
+                                              <h6>Requirement</h6>
+                                              <textarea name="requirement_co" placeholder="Requirement" data-error="Please,write a requirement about course." required="required"><?php echo $course['requirement_co']; ?></textarea>
+                                              <div class="help-block with-errors"></div>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                      <p class="form-message"></p>
+                                      <div class="col-md-12">
+                                          <div class="singel-form">
+                                              <button type="submit" class="main-btn">Submit</button>
+                                          </div> <!-- singel form -->
+                                      </div>
+                                  </div> <!-- row -->
+                              </form>
+                          </div> <!-- main form -->
+                      </div> <!--  contact from -->
+                  </div>
+
+                <?php }?>
             </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="releted-courses pt-95">
-                        <div class="title">
-                            <h3>Các khóa học liên quan</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="singel-course mt-30">
-                                    <div class="thum">
-                                        <div class="image">
-                                            <img src="images/course/cu-2.jpg" alt="Course">
-                                        </div>
-                                        <div class="price">
-                                            <span>Free</span>
-                                        </div>
-                                    </div>
-                                    <div class="cont">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                        <span>(20 Reviws)</span>
-                                        <a href="courses-singel.php"><h4><?php echo $course["name_co"]; ?></h4></a>
-                                        <div class="course-teacher">
-                                            <div class="thum">
-                                                <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
-                                            </div>
-                                            <div class="name">
-                                                <a href="#"><h6>Mark anthem</h6></a>
-                                            </div>
-                                            <div class="admin">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- singel course -->
-                            </div>
-                            <div class="col-md-6">
-                                <div class="singel-course mt-30">
-                                    <div class="thum">
-                                        <div class="image">
-                                            <img src="images/course/cu-1.jpg" alt="Course">
-                                        </div>
-                                        <div class="price">
-                                            <span>Free</span>
-                                        </div>
-                                    </div>
-                                    <div class="cont">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                        <span>(20 Reviws)</span>
-                                        <a href="courses-singel.php"><h4><?php echo $course["name_co"]; ?></h4></a>
-                                        <div class="course-teacher">
-                                            <div class="thum">
-                                                <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
-                                            </div>
-                                            <div class="name">
-                                                <a href="#"><h6>Mark anthem</h6></a>
-                                            </div>
-                                            <div class="admin">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- singel course -->
-                            </div>
-                        </div> <!-- row -->
-                    </div> <!-- releted courses -->
-                </div>
-            </div> <!-- row -->
+
+
         </div> <!-- container -->
     </section>
 
@@ -789,14 +605,14 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-about mt-40">
                             <div class="logo">
-                                <a href="#"><img src="images/logo-2.png" alt="Logo"></a>
+                                <a href="../#"><img src="../images/logo-2.png" alt="Logo"></a>
                             </div>
                             <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate.</p>
                             <ul class="mt-20">
-                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="../#"><i class="fa fa-facebook-f"></i></a></li>
+                                <li><a href="../#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="../#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="../#"><i class="fa fa-instagram"></i></a></li>
                             </ul>
                         </div> <!-- footer about -->
                     </div>
@@ -806,18 +622,18 @@
                                 <h6>Sitemap</h6>
                             </div>
                             <ul>
-                                <li><a href="index-2.html"><i class="fa fa-angle-right"></i>Home</a></li>
-                                <li><a href="about.html"><i class="fa fa-angle-right"></i>About us</a></li>
-                                <li><a href="courses.php"><i class="fa fa-angle-right"></i>Courses</a></li>
-                                <li><a href="blog.html"><i class="fa fa-angle-right"></i>News</a></li>
-                                <li><a href="events.html"><i class="fa fa-angle-right"></i>Event</a></li>
+                                <li><a href="../index-2.html"><i class="fa fa-angle-right"></i>Home</a></li>
+                                <li><a href="../about.html"><i class="fa fa-angle-right"></i>About us</a></li>
+                                <li><a href="../courses.php"><i class="fa fa-angle-right"></i>Courses</a></li>
+                                <li><a href="../blog.html"><i class="fa fa-angle-right"></i>News</a></li>
+                                <li><a href="../events.html"><i class="fa fa-angle-right"></i>Event</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Gallery</a></li>
-                                <li><a href="shop.html"><i class="fa fa-angle-right"></i>Shop</a></li>
-                                <li><a href="teachers.php"><i class="fa fa-angle-right"></i>Teachers</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Support</a></li>
-                                <li><a href="contact.html"><i class="fa fa-angle-right"></i>Contact</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Gallery</a></li>
+                                <li><a href="../shop.html"><i class="fa fa-angle-right"></i>Shop</a></li>
+                                <li><a href="../teachers.php"><i class="fa fa-angle-right"></i>Teachers</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Support</a></li>
+                                <li><a href="../contact.html"><i class="fa fa-angle-right"></i>Contact</a></li>
                             </ul>
                         </div> <!-- footer link -->
                     </div>
@@ -827,11 +643,11 @@
                                 <h6>Support</h6>
                             </div>
                             <ul>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>FAQS</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Privacy</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Policy</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Support</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Documentation</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>FAQS</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Privacy</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Policy</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Support</a></li>
+                                <li><a href="../#"><i class="fa fa-angle-right"></i>Documentation</a></li>
                             </ul>
                         </div> <!-- support -->
                     </div>
@@ -868,6 +684,7 @@
                             </ul>
                         </div> <!-- footer address -->
                     </div>
+
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- footer top -->
@@ -877,7 +694,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="copyright text-md-left text-center pt-15">
-                            <p><a href="https://www.templatespoint.net" target="_blank">Templates Point</a> </p>
+                            <p><a href="../https://www.templatespoint.net" target="_blank">Templates Point</a> </p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -894,7 +711,7 @@
 
     <!--====== BACK TO TP PART START ======-->
 
-    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+    <a href="../#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
     <!--====== BACK TO TP PART ENDS ======-->
 
@@ -906,43 +723,43 @@
 
 
     <!--====== jquery js ======-->
-    <script src="js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="../js/vendor/jquery-1.12.4.min.js"></script>
 
     <!--====== Bootstrap js ======-->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 
     <!--====== Slick js ======-->
-    <script src="js/slick.min.js"></script>
+    <script src="../js/slick.min.js"></script>
 
     <!--====== Magnific Popup js ======-->
-    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="../js/jquery.magnific-popup.min.js"></script>
 
     <!--====== Counter Up js ======-->
-    <script src="js/waypoints.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
+    <script src="../js/waypoints.min.js"></script>
+    <script src="../js/jquery.counterup.min.js"></script>
 
     <!--====== Nice Select js ======-->
-    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
 
     <!--====== Nice Number js ======-->
-    <script src="js/jquery.nice-number.min.js"></script>
+    <script src="../js/jquery.nice-number.min.js"></script>
 
     <!--====== Count Down js ======-->
-    <script src="js/jquery.countdown.min.js"></script>
+    <script src="../js/jquery.countdown.min.js"></script>
 
     <!--====== Validator js ======-->
-    <script src="js/validator.min.js"></script>
+    <script src="../js/validator.min.js"></script>
 
     <!--====== Ajax Contact js ======-->
-    <script src="js/ajax-contact.js"></script>
+    <script src="../js/ajax-contact.js"></script>
 
     <!--====== Main js ======-->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 
     <!--====== Map js ======-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
-    <script src="js/map-script.js"></script>
+    <script src="../js/map-script.js"></script>
 
 </body>
 </html>

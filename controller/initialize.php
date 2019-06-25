@@ -1,7 +1,7 @@
 <?php
   define("CONTROLLER_PATH", dirname(__FILE__));
   define("PROJECT_PATH", dirname(CONTROLLER_PATH));
-  //define("SHARED_PATH", CONTROLLER_PATH . '/shared');
+  define("SHARED_PATH", CONTROLLER_PATH . '/shared');
   define("MODELS_PATH", PROJECT_PATH . '/models');
   define("VIEWS_PATH", PROJECT_PATH . '/views');
   $public_end = strpos($_SERVER['SCRIPT_NAME'], '/views') + 6;
