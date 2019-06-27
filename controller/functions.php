@@ -7,7 +7,15 @@
   }
 
   function redirect_to($location) {
-  header("Location: " . $location);
-  exit;
-}
+    header("Location: " . $location);
+    exit;
+  }
+
+  function check_user($usrn,$pwd){
+    $accs_set = get_all_accs();
+    while ($acc = mysqli_fetch_assoc($accs_set)) {
+      if ($usrn == $acc['username'] && $pwd==$acc['password']) return true;
+    }
+    return false;
+  }
 ?>

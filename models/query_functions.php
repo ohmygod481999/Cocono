@@ -1,4 +1,36 @@
 <?php
+  function insert_acc($acc){
+    global $db;
+
+    $username = $acc['username'];
+    $password = $acc['password'];
+    $privilleage = $acc['privilleage'];
+    $name_user = $acc['name_user'];
+    $email = $acc['email'];
+    $phone_number = $acc['phone_number'];
+
+    $query = "INSERT INTO `account` (`username`, `password`, `privilleage`, `name_user`, `email`, `phone_number`) VALUES ('$username','$password','$privilleage','$name_user','$email','$phone_number');";
+    $result = mysqli_query($db,$query);
+
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
+
+  function get_all_accs(){
+    global $db;
+
+    $query = "SELECT * FROM `account`;";
+    $result = mysqli_query($db,$query);
+
+    return $result;
+  }
+
   function delete_course($id){
       global $db;
 

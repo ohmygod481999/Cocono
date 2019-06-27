@@ -92,7 +92,7 @@
                         <div class="singel-course-2">
                             <div class="thum">
                                 <div class="image">
-                                    <img src="../<?php echo $course['path_pic']; ?>" alt="Course">
+                                    <img src="../<?php if($course['path_pic']!='') echo $course['path_pic']; else echo "images/course/unknow.png";?>" alt="Course">
                                 </div>
                                 <div class="price">
                                     <span><?php echo $course['price']; ?></span>
