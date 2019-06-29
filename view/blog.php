@@ -34,11 +34,11 @@
                            <img src="images/blog/b-1.jpg" alt="Blog">
                        </div>
                        <div class="blog-cont">
-                           <a href="blog-singel.html"><h3>Few tips for get better results in examination</h3></a>
+                           <a href="blog-singel.html"><h3>Cách viết mail chuyên nghiệp</h3></a>
                            <ul>
-                               <li><a href="#"><i class="fa fa-calendar"></i>25 Dec 2018</a></li>
-                               <li><a href="#"><i class="fa fa-user"></i>Mark anthem</a></li>
-                               <li><a href="#"><i class="fa fa-tags"></i>Education</a></li>
+                               <li><a href="#"><i class="fa fa-calendar"></i>29 June 2019</a></li>
+                               <li><a href="#"><i class="fa fa-user"></i>Xuân Nguyễn</a></li>
+                               <li><a href="#"><i class="fa fa-tags"></i>TIPs</a></li>
                            </ul>
                            <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
                        </div>
