@@ -8,7 +8,7 @@
   }
   else $id = 1;
 ?>
-
+<?php $teacher = get_teacher_by_id($id);?>
 <?php $courses_set = get_courses_by_id_teacher($id); ?>
 
 <?php include_once(SHARED_PATH . '/public_header.php'); ?>
@@ -275,5 +275,4 @@
     </section>
 
     <!--====== EVENTS PART ENDS ======-->
-
-    <?php include_once(SHARED_PATH. '/public_footer.php'); ?>
+<?php include_once(SHARED_PATH. '/public_footer.php'); ?>

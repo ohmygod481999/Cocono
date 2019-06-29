@@ -4,7 +4,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if (check_user($username,$password)){
+    if (check_login($username,$password)){
       echo "wellcome";
       exit();
     }
@@ -51,7 +51,7 @@
                             <h2></h2>
                         </div> <!-- section title -->
                         <div class="main-form pt-45">
-                            <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" data-toggle="validator">
+                            <form id="login-form" action="../controller/login.php" method="post" data-toggle="validator">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="singel-form form-group">
@@ -124,5 +124,4 @@
     </div>
 
     <!--====== PATNAR LOGO PART ENDS ======-->
-
-    <?php include_once(SHARED_PATH. '/public_footer.php'); ?>
+<?php include_once(SHARED_PATH. '/public_footer.php'); ?>

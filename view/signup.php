@@ -1,11 +1,10 @@
 <?php require_once('../controller/initialize.php'); ?>
-
 <?php
   if (is_post_request()){
     $acc = [];
     $acc['username'] = $_POST['username'];
     $acc['password'] = $_POST['password'];
-    $acc['privilleage'] = $_POST['privilleage'];
+    $acc['privilege'] = $_POST['privilege'];
     $acc['name_user'] = $_POST['name_user'];
     $acc['email'] = $_POST['email'];
     $acc['phone_number'] = $_POST['phone_number'];
@@ -13,16 +12,18 @@
     $result = insert_acc($acc);
 
     if ($result == true){
-      echo "success";
+      echo "Success";
+      $flag = true;
+      exit;
     }
     else {
       $errors = $result;
+      echo "Fail";
+      exit;
     }
-
-
   }
 ?>
-  <?php include_once(SHARED_PATH . '/public_header.php'); ?>
+<?php include_once(SHARED_PATH . '/public_header.php'); ?>
 
     <!--====== PAGE BANNER PART START ======-->
 
@@ -59,7 +60,7 @@
                         </div> <!-- section title -->
                         <div class="main-form pt-45">
                             <form id="signup-form" action="signup.php" method="post" data-toggle="validator">
-                              <input type="hidden" name="privilleage" value="user">
+                              <input type="hidden" name="privilege" value="user">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="singel-form form-group">
@@ -188,5 +189,4 @@
     </div>
 
     <!--====== PATNAR LOGO PART ENDS ======-->
-
  <?php include_once(SHARED_PATH . '/public_footer.php'); ?>

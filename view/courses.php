@@ -2,10 +2,8 @@
 
 <?php
   $courses_set = get_courses();
-
 ?>
 
-<?php require_once('../controller/initialize.php') ?>
 <?php include_once(SHARED_PATH . '/public_header.php'); ?>
 
     <!--====== PAGE BANNER PART START ======-->

@@ -4,12 +4,12 @@
 
     $username = $acc['username'];
     $password = $acc['password'];
-    $privilleage = $acc['privilleage'];
+    $privilege = $acc['privilege'];
     $name_user = $acc['name_user'];
     $email = $acc['email'];
     $phone_number = $acc['phone_number'];
 
-    $query = "INSERT INTO `account` (`username`, `password`, `privilleage`, `name_user`, `email`, `phone_number`) VALUES ('$username','$password','$privilleage','$name_user','$email','$phone_number');";
+    $query = "INSERT INTO `account` (`username`, `password`, `privilege`, `name_user`, `email`, `phone_number`) VALUES ('$username','$password','$privilege','$name_user','$email','$phone_number');";
     $result = mysqli_query($db,$query);
 
     if($result) {

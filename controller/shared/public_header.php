@@ -152,13 +152,23 @@
                                             <li><a href="blog-singel.php">Blog Singel</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="login.php">Đăng nhập</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="login.php">Đăng nhập</a></li>
-                                            <li><a href="signup.php">Đăng ký</a></li>
-                                        </ul>
-                                    </li>
+                                    <?php if(!is_logged_in()){?>
+                                      <li class="nav-item">
+                                          <a href="login.php">Đăng nhập</a>
+                                          <ul class="sub-menu">
+                                              <li><a href="login.php">Đăng nhập</a></li>
+                                              <li><a href="signup.php">Đăng ký</a></li>
+                                          </ul>
+                                      </li>
+                                    <?php } else { ?>
+                                      <li class="nav-item">
+                                          <a href="#"><?php echo $_SESSION['username']; ?></a>
+                                          <ul class="sub-menu">
+                                              <li><a href="#">Thông tin cá nhân</a></li>
+                                              <li><a href="../controller/logout.php">Đăng xuất</a></li>
+                                          </ul>
+                                      </li>
+                                    <?php } ?>
 
                                 </ul>
                             </div>

@@ -102,8 +102,8 @@
                 <div class="row no-gutters">
                     <div class="col-lg-11 col-md-10 col-sm-9 col-9">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="../index-3.html">
-                                <img src="../images/cocono_1.png" alt="Logo">
+                            <a class="navbar-brand" href="../index.php">
+                                <img src="../images/cocono.png" alt="Logo">
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="icon-bar"></span>
@@ -114,11 +114,11 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="active" href="../index-2.html">Home</a>
+                                        <a class="active" href="../index-2.php">Home</a>
                                         <ul class="sub-menu">
-                                            <li><a href="../index-2.html">Home 01</a></li>
-                                            <li><a class="active" href="../index-3.html">Home 02</a></li>
-                                            <li><a href="../index-4.html">Home 03</a></li>
+                                            <li><a href="../index.php">Home 01</a></li>
+                                            <li><a class="active" href="../index-3.php">Home 02</a></li>
+                                            <li><a href="../index-4.php">Home 03</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -144,10 +144,10 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="../blog.html">Blog</a>
+                                        <a href="../blog.php">Blog</a>
                                         <ul class="sub-menu">
-                                            <li><a href="../blog.html">Blog</a></li>
-                                            <li><a href="../blog-singel.html">Blog Singel</a></li>
+                                            <li><a href="../blog.php">Blog</a></li>
+                                            <li><a href="../blog-singel.php">Blog Singel</a></li>
                                         </ul>
                                     </li>
 

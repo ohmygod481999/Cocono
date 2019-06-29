@@ -1,3 +1,4 @@
+<?php require_once('../controller/initialize.php'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -76,7 +77,7 @@
                     <div class="col-lg-11 col-md-10 col-sm-9 col-9">
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="index.php">
-                                <img src="images/cocono_1.png" alt="Logo">
+                                <img src="images/cocono.png" alt="Logo">
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="icon-bar"></span>
@@ -104,9 +105,24 @@
                                     <li class="nav-item">
                                         <a href="about.php">Về Cocono</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="contact.php">Đăng ký</a>
-                                    </li>
+                                    <?php if(!is_logged_in()){?>
+                                      <li class="nav-item">
+                                          <a href="login.php">Đăng nhập</a>
+                                          <ul class="sub-menu">
+                                              <li><a href="login.php">Đăng nhập</a></li>
+                                              <li><a href="signup.php">Đăng ký</a></li>
+                                          </ul>
+                                      </li>
+                                    <?php } else { ?>
+                                      <li class="nav-item">
+                                          <a href="#"><?php echo $_SESSION['username']; ?></a>
+                                          <ul class="sub-menu">
+                                              <li><a href="#">Thông tin cá nhân</a></li>
+                                              <li><a href="../controller/logout.php">Đăng xuất</a></li>
+                                          </ul>
+                                      </li>
+                                    <?php } ?>
+
                                 </ul>
                             </div>
                         </nav> <!-- nav -->

@@ -512,7 +512,7 @@
                                           <select name="id_ca" class="col-md-12">
                                             <?php while ($category = mysqli_fetch_assoc($categories_set)) {?>
                                               <option value="<?php echo $category['id_ca']; ?>" <?php if ($category['id_ca']==$course['id_ca']) echo 'selected="selected"'; ?>><?php echo $category['name_ca']; ?></option>
-                                            <? } ?>
+                                            <?php } ?>
                                           </select>
                                         </div>
                                       </div>
@@ -550,7 +550,7 @@
                                           <select name="id_te" class="col-md-12">
                                             <?php while ($teacher = mysqli_fetch_assoc($teachers_set)) {?>
                                               <option value="<?php echo $teacher['id_te']; ?>" <?php if ($teacher['id_te']==$course['id_te']) echo 'selected="selected"'; ?>><?php echo $teacher['name_te']; ?></option>
-                                            <? } ?>
+                                            <?php } ?>
                                           </select>
                                         </div>
                                       </div>

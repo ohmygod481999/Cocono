@@ -1,4 +1,5 @@
 <?php require_once('../../controller/initialize.php'); ?>
+<?php check_logged_in_as_admin(); ?>
 
 <?php $categories_set = get_categories(); ?>
 

@@ -88,7 +88,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="copyright text-md-left text-center pt-15">
-                        <p><a href="https://www.templatespoint.net" target="_blank">Templates Point</a> </p>
+                        <p>	&#9400; 2019 Cocono, Inc</p>
                     </div>
                 </div>
                 <div class="col-md-4">
